@@ -12,8 +12,8 @@ while:
 	addi s0 s0 1
 	j while
 break:
-	pop(t0)
 	pop(s0)
+	pop(t0)
 .end_macro
 
 # Print array of the size% size_reg by the label %label
@@ -31,8 +31,8 @@ while:
 	addi t0 t0 4
 	j while
 break:
-	pop(t0)
 	pop(s0)
+	pop(t0)
 .end_macro
 
 # Read an integer from the keyboard in the register %dest apart from a0 register
@@ -118,9 +118,9 @@ while:
 	addi t0 t0 4
 	j while
 break:
-	pop(t0)
-	pop(t1)
 	pop(s0)
+	pop(t1)
+	pop(t0)
 .end_macro
 
 # The rule which is used to from the array b (see variant 8)
