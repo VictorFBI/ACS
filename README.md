@@ -10,6 +10,9 @@ Repository for ACS course homeworks. HSE SE 2023-2024
 ![image](https://github.com/VictorFBI/ACS/assets/124510561/1f4c9a29-380f-4a2e-bd2d-0e5c3a386803)
 ## HW 5
 ![image](https://github.com/VictorFBI/ACS/assets/124510561/e5f2e6b4-4404-4c86-8e84-27a426fa5f5f)
+## IHW 1
+![image](https://github.com/VictorFBI/ACS/assets/124510561/a42b722e-4a3a-4625-bef2-18cb26578f8a)
+
 
 
 
