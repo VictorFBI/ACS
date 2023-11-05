@@ -13,6 +13,10 @@ Repository for ACS course homeworks. HSE SE 2023-2024
 ## IHW 1
 ![image](https://github.com/VictorFBI/ACS/assets/124510561/a42b722e-4a3a-4625-bef2-18cb26578f8a)  
 Also realize testing of the program by means of **additional testing program**. During testing, content must not be entered manually
+## IHW 2
+![image](https://github.com/VictorFBI/ACS/assets/124510561/2ae1bef6-47a5-4958-bd0c-e95aec1d5752)
+Also realize testing of the program by means of **additional testing program**. During testing, content must not be entered manually
+
 
 
 
