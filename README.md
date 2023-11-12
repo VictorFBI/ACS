@@ -16,7 +16,8 @@ Also realize testing of the program by means of **additional testing program**. 
 ## IHW 2
 ![image](https://github.com/VictorFBI/ACS/assets/124510561/2ae1bef6-47a5-4958-bd0c-e95aec1d5752)
 Also realize testing of the program by means of **additional testing program**. During testing, content must not be entered manually
-
+## HW 6
+![image](https://github.com/VictorFBI/ACS/assets/124510561/ad0520a9-7096-470e-baf1-e5c35ccc6c31)
 
 
 
