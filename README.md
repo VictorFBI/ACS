@@ -20,6 +20,9 @@ Also realize testing of the program by means of **additional testing program**. 
 ![image](https://github.com/VictorFBI/ACS/assets/124510561/ad0520a9-7096-470e-baf1-e5c35ccc6c31)
 ## HW 7
 ![image](https://github.com/VictorFBI/ACS/assets/124510561/6015d9bf-a951-4253-a340-3bd2e0acc002)
+## IHW 3
+![image](https://github.com/VictorFBI/ACS/assets/124510561/1cdc2ae4-c88c-42f6-8356-1162029cafb2)
+
 
 
 
