@@ -1,0 +1,4 @@
+D:\asm\ihw3\file1.txt
+ple
+D:\asm\ihw3\ans1.txt
+Y

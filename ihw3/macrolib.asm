@@ -12,7 +12,79 @@
 	push(s0)
 	push(s1)
 	push(s2)
-	jal readfile
+	.eqv    NAME_SIZE 256	# Размер буфера для имени файла
+.eqv    TEXT_SIZE 512	# Размер буфера для текста
+
+.data
+	er_name_mes:    .asciz "Incorrect file name\n"
+	er_read_mes:    .asciz "Incorrect read operation\n"
+	file_name:      .space	NAME_SIZE		# Имячитаемого файла
+	strbuf:	        .space   TEXT_SIZE		# Буфер для читаемого текста
+.text
+    print_str_imm("Input path to file for reading: ") # Вывод подсказки
+    # Ввод имени файла с консоли эмулятора
+    str_get(file_name, NAME_SIZE)
+    open(file_name, READ_ONLY)
+    li		s1 -1			# Проверка на корректное открытие
+    beq		a0 s1 er_name	# Ошибка открытия файла
+    mv   	s0 a0       	# Сохранение дескриптора файла
+
+    # Выделение начального блока памяти для для буфера в куче
+    allocate(TEXT_SIZE)		# Результат хранится в a0
+    mv 		s3, a0			# Сохранение адреса кучи в регистре
+    mv 		s5, a0			# Сохранение изменяемого адреса кучи в регистре
+    li		s4, TEXT_SIZE	# Сохранение константы для обработки
+    mv		s6, zero		# Установка начальной длины прочитанного текста
+    ###############################################################
+read_loop:
+    # Чтение информации из открытого файла
+    ###read(s0, strbuf, TEXT_SIZE)
+    read_addr_reg(s0, s5, TEXT_SIZE) # чтение для адреса блока из регистра
+    # Проверка на корректное чтение
+    beq		a0 s1 er_read	# Ошибка чтения
+    mv   	s2 a0       	# Сохранение длины текста
+    add 	s6, s6, s2		# Размер текста увеличивается на прочитанную порцию
+    # При длине прочитанного текста меньшей, чем размер буфера,
+    # необходимо завершить процесс.
+    bne		s2 s4 end_loop
+    # Иначе расширить буфер и повторить
+    allocate(TEXT_SIZE)		# Результат здесь не нужен, но если нужно то...
+    add		s5 s5 s2		# Адрес для чтения смещается на размер порции
+    b read_loop				# Обработка следующей порции текста из файла
+end_loop:
+    ###############################################################
+    # Закрытие файла
+    close(s0)
+    #li   a7, 57       # Системный вызов закрытия файла
+    #mv   a0, s0       # Дескриптор файла
+    #ecall             # Закрытие файла
+    ###############################################################
+    # Установка нуля в конце прочитанной строки
+    ###la	t0 strbuf	 # Адрес начала буфера
+    mv	t0 s3		# Адрес буфера в куче
+    add t0 t0 s6	# Адрес последнего прочитанного символа
+    addi t0 t0 1	# Место для нуля
+    sb	zero (t0)	# Запись нуля в конец текста
+    ###############################################################
+    # Вывод текста на консоль
+    ###la 	a0 strbuf
+    mv	a0	s3	# Адрес начала буфера из кучи
+    # End of the program
+    j finish
+er_name:
+    # Сообщение об ошибочном имени файла
+    la		a0 er_name_mes
+    li		a7 4
+    ecall
+    # И завершение программы
+    j finish
+er_read:
+    # Сообщение об ошибочном чтении
+    la		a0 er_read_mes
+    li		a7 4
+    ecall
+    # И завершение программы
+finish:
 	mv %buf_reg a0
 	pop(s2)
 	pop(s1)
@@ -42,7 +114,58 @@
 	push(s2)
 	mv a3 %str_reg
 	len(a3, a2)
-	jal writefile
+		
+.eqv	NAME_SIZE 256	# Размер буфера для имени файла
+
+.data
+	prompt:  .asciz "Input path to the finite file: "     # Путь до читаемого файла
+	default_name: .asciz "testout.txt"      # Имя файла по умолчанию
+	file_name: .space	NAME_SIZE		# Имя читаемого файла
+.text
+    # Вывод подсказки
+    la		a0 prompt
+    li		a7 4
+    ecall
+    
+    # Ввод имени файла с консоли эмулятора
+    la		a0 file_name
+    li      a1 NAME_SIZE
+    li      a7 8
+    ecall
+    # Убрать перевод строки
+    li  t4 '\n'
+    la  t5  file_name
+    mv  t3 t5	# Сохранение начала буфера для проверки на пустую строку
+loop:
+    lb	t6  (t5)
+    beq t4	t6	replace
+    addi t5 t5 1
+    b   loop
+replace:
+    beq t3 t5 default	# Установка имени введенного файла
+    sb  zero (t5)
+    mv   a0, t3 	# Имя, введенное пользователем
+    b out
+default:
+    la   a0, default_name # Default name of the file
+
+out:
+    # Open (for writing) a file that does not exist
+    li   a7, 1024     # system call for open file
+    li   a1, 1        # Open for writing (flags are 0: read, 1: write)
+    ecall             # open a file (file descriptor returned in a0)
+    mv   s6, a0       # save the file descriptor
+
+    # Write to file just opened
+    li   a7, 64       # system call for write to file
+    mv   a0, s6       # file descriptor
+    mv   a1, a3 # address of buffer from which to write
+    ecall             # write to file
+
+    # Close the file
+    li   a7, 57       # system call for close file
+    mv   a0, s6       # file descriptor to close
+    ecall             # close file
 	pop(s2)
 	pop(s1)
 	pop(s0)
@@ -54,6 +177,38 @@
 	pop(a2)
 	pop(a1)
 	pop(a0)
+.end_macro
+
+# Asks user to write Y or N for writing additional data in the console
+.macro survey(%flag_reg)
+	push(a2)
+	push(a3)
+	push(a4)
+	read_str(a2)
+	lb a3 (a2)
+	li a4 'Y'
+	beq a3 a4 yes
+	li a4 'N' 
+	beq a3 a4 no
+loop:
+	print_str_imm("Please, input only Y or N")
+	newline
+	read_str(a2)
+	lb a3 (a2)
+	li a4 'Y'
+	beq a3 a4 yes
+	li a4 'N' 
+	beq a3 a4 no
+	j loop
+yes:
+	li %flag_reg 1
+	j finish
+no:
+	li %flag_reg 0
+finish:
+	pop(a4)
+	pop(a3)
+	pop(a2)
 .end_macro
 
 # Read a string (max size is 4096 symbols) into the given register except of a0 register
@@ -95,6 +250,81 @@
 	pop(a0)
 .end_macro
 
+#-------------------------------------------------------------------------------
+# Ввод строки в буфер заданного размера с заменой перевода строки нулем
+# %strbuf - адрес буфера
+# %size - целая константа, ограничивающая размер вводимой строки
+.macro str_get(%strbuf, %size)
+    la      a0 %strbuf
+    li      a1 %size
+    li      a7 8
+    ecall
+    push(s0)
+    push(s1)
+    push(s2)
+    li	s0 '\n'
+    la	s1	%strbuf
+next:
+    lb	s2  (s1)
+    beq s0	s2	replace
+    addi s1 s1 1
+    b	next
+replace:
+    sb	zero (s1)
+    pop(s2)
+    pop(s1)
+    pop(s0)
+.end_macro
+
+#-------------------------------------------------------------------------------
+# Открытие файла для чтения, записи, дополнения
+.eqv READ_ONLY	0	# Открыть для чтения
+.eqv WRITE_ONLY	1	# Открыть для записи
+.eqv APPEND	    9	# Открыть для добавления
+.macro open(%file_name, %opt)
+    li   	a7 1024     	# Системный вызов открытия файла
+    la      a0 %file_name   # Имя открываемого файла
+    li   	a1 %opt        	# Открыть для чтения (флаг = 0)
+    ecall             		# Дескриптор файла в a0 или -1)
+.end_macro
+
+#-------------------------------------------------------------------------------
+# Чтение информации из открытого файла
+.macro read(%file_descriptor, %strbuf, %size)
+    li   a7, 63       	# Системный вызов для чтения из файла
+    mv   a0, %file_descriptor       # Дескриптор файла
+    la   a1, %strbuf   	# Адрес буфера для читаемого текста
+    li   a2, %size 		# Размер читаемой порции
+    ecall             	# Чтение
+.end_macro
+
+#-------------------------------------------------------------------------------
+# Чтение информации из открытого файла,
+# когда адрес буфера в регистре
+.macro read_addr_reg(%file_descriptor, %reg, %size)
+    li   a7, 63       	# Системный вызов для чтения из файла
+    mv   a0, %file_descriptor       # Дескриптор файла
+    mv   a1, %reg   	# Адрес буфера для читаемого текста из регистра
+    li   a2, %size 		# Размер читаемой порции
+    ecall             	# Чтение
+.end_macro
+
+#-------------------------------------------------------------------------------
+# Закрытие файла
+.macro close(%file_descriptor)
+    li   a7, 57       # Системный вызов закрытия файла
+    mv   a0, %file_descriptor  # Дескриптор файла
+    ecall             # Закрытие файла
+.end_macro
+
+#-------------------------------------------------------------------------------
+# Выделение области динамической памяти заданного размера
+.macro allocate(%size)
+    li a7, 9
+    li a0, %size	# Размер блока памяти
+    ecall
+.end_macro
+
 # Prints immediate string
 .macro print_str_imm(%str_imm)
 .data
@@ -114,9 +344,11 @@
 	la s0 %ans_label
 	li s1 0
 	mv s3 %num_reg
+	beqz s3 null
 	addi s3 s3 1
 	beqz s3 is_negative
 	li s4 10
+	addi s3 s3 -1
 loop:
 	beqz s3 finish
 	rem s5 s3 s4
@@ -147,6 +379,10 @@ for:
 	sub s0 s0 s2 # go back to str[0]
 	addi s2 s2 1 # ++s2
 	j for
+null:
+	li s1 48 # ascii code for 0
+	sb s1 (s0)
+	j end
 is_negative:
 	# Hardcodes the recording of -1 to the given label
 	li s1 45 # ascii code for -
@@ -189,7 +425,8 @@ end:
 	mv t2 %sub_str_reg
 	mv s1 %start_reg
 	add t1 t1 s1
-	li t5 '\n'
+	li t5 '\n' # this symbol indicates about the end of the string, because the 
+	# substring is being input via console
 loop:
 	lb t3 (t1)
 	lb t4 (t2) 
@@ -227,7 +464,6 @@ loop:
 	addi s3 s3 1
 	j loop
 finish:
-	addi s3 s3 -1
 	mv %ans_reg s3
 	j end	
 no_occurencies:

@@ -1,0 +1,4 @@
+D:\asm\ihw3\file9.txt
+red
+D:\asm\ihw3\ans9.txt
+N

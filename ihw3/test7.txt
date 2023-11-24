@@ -1,0 +1,4 @@
+D:\asm\ihw3\file7.txt
+blue
+D:\asm\ihw3\ans7.txt
+N

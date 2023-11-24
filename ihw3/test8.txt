@@ -1,0 +1,4 @@
+D:\asm\ihw3\file8.txt
+-1
+D:\asm\ihw3\ans8.txt
+Y

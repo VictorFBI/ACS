@@ -1,0 +1,4 @@
+D:\asm\ihw3\file10.txt
+federer
+D:\asm\ihw3\ans10.txt
+N

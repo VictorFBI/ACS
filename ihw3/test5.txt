@@ -1,0 +1,4 @@
+D:\asm\ihw3\file5.txt
+789
+D:\asm\ihw3\ans5.txt
+N
