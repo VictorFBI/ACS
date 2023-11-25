@@ -77,13 +77,14 @@ er_name:
     li		a7 4
     ecall
     # И завершение программы
-    j finish
+    exit
 er_read:
     # Сообщение об ошибочном чтении
     la		a0 er_read_mes
     li		a7 4
     ecall
     # И завершение программы
+    exit
 finish:
 	mv %buf_reg a0
 	pop(s2)
