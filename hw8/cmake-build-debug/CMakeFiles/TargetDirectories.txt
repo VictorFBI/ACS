@@ -1,0 +1,3 @@
+C:/Users/frolo/CLionProjects/async/cmake-build-debug/CMakeFiles/async.dir
+C:/Users/frolo/CLionProjects/async/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/frolo/CLionProjects/async/cmake-build-debug/CMakeFiles/rebuild_cache.dir
