@@ -1,0 +1,43 @@
+[write] 1. Thread number 1 changed the value of record with id 1 from 100 to 114
+ [read] 2. Thread number 1 read the record with id 2 and  value 114
+ [write] 3. Thread number 8 changed the value of record with id 1 from 42 to 956
+ [read] 4. Thread number 5 read the record with id 2 and  value 114
+ [write] 5. Thread number 2 changed the value of record with id 2 from 956 to 412
+ [read] 6. Thread number 2 read the record with id 1 and  value 114
+ [write] 7. Thread number 11 changed the value of record with id 2 from 412 to 1055
+ [read] 8. Thread number 10 read the record with id 1 and  value 114
+ [write] 9. Thread number 14 changed the value of record with id 0 from -10 to 702
+ [read] 10. Thread number 8 read the record with id 0 and  value 114
+ [read] 11. Thread number 14 read the record with id 1 and  value 702
+ [read] 12. Thread number 9 read the record with id 1 and  value 380
+ [read] 13. Thread number 7 read the record with id 0 and  value 114
+ [read] 14. Thread number 11 read the record with id 1 and  value 380
+ [read] 15. Thread number 6 read the record with id 2 and  value 1055
+ [read] 16. Thread number 12 read the record with id 1 and  value 380
+ [read] 17. Thread number 13 read the record with id 0 and  value 114
+ [write] 18. Thread number 17 changed the value of record with id 1 from 702 to 380
+ [write] 19. Thread number 19 changed the value of record with id 1 from 380 to 820
+ [read] 20. Thread number 16 read the record with id 0 and  value 114
+ [read] 21. Thread number 4 read the record with id 0 and  value 114
+ [read] 22. Thread number 17 read the record with id 1 and  value 820
+ [read] 23. Thread number 19 read the record with id 0 and  value 114
+ [read] 24. Thread number 20 read the record with id 0 and  value 114
+ [read] 25. Thread number 15 read the record with id 1 and  value 820
+ [read] 26. Thread number 18 read the record with id 1 and  value 820
+ [read] 27. Thread number 3 read the record with id 0 and  value 114
+ [write] 28. Thread number 7 changed the value of record with id 2 from 1055 to 817
+ [write] 29. Thread number 10 changed the value of record with id 1 from 817 to 867
+ [write] 30. Thread number 3 changed the value of record with id 2 from 867 to 746
+ [write] 31. Thread number 12 changed the value of record with id 2 from 820 to 96
+ [write] 32. Thread number 13 changed the value of record with id 0 from 96 to 600
+ [write] 33. Thread number 4 changed the value of record with id 2 from 746 to 301
+ [write] 34. Thread number 15 changed the value of record with id 2 from 600 to 913
+ [write] 35. Thread number 16 changed the value of record with id 2 from 913 to 273
+ [write] 36. Thread number 18 changed the value of record with id 1 from 273 to 255
+ [write] 37. Thread number 5 changed the value of record with id 1 from 255 to 472
+ [write] 38. Thread number 20 changed the value of record with id 0 from 114 to 656
+ [write] 39. Thread number 6 changed the value of record with id 0 from 301 to 538
+ [write] 40. Thread number 9 changed the value of record with id 2 from 656 to 529
+ Final vector:  472  529  538  
+Used distribution: Uniform(59, 1059)
+ 

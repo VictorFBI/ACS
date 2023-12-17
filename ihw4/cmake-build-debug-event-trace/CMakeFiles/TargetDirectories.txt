@@ -1,0 +1,3 @@
+C:/Users/frolo/CLionProjects/leetcode/cmake-build-debug-event-trace/CMakeFiles/leetcode.dir
+C:/Users/frolo/CLionProjects/leetcode/cmake-build-debug-event-trace/CMakeFiles/edit_cache.dir
+C:/Users/frolo/CLionProjects/leetcode/cmake-build-debug-event-trace/CMakeFiles/rebuild_cache.dir

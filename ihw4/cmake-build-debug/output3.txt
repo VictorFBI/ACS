@@ -1,0 +1,23 @@
+[read] 1. Thread number 5 read the record with id 4 and  value 7
+ [read] 2. Thread number 7 read the record with id 2 and  value 56
+ [write] 3. Thread number 0 changed the value of record with id 2 from 56 to 1300
+ [read] 4. Thread number 19 read the record with id 1 and  value -10
+ [write] 5. Thread number 8 changed the value of record with id 6 from 90 to 920
+ [read] 6. Thread number 1 read the record with id 5 and  value 67
+ [read] 7. Thread number 9 read the record with id 7 and  value 1300
+ [write] 8. Thread number 2 changed the value of record with id 1 from -10 to 970
+ [write] 9. Thread number 10 changed the value of record with id 3 from 31 to 512
+ [write] 10. Thread number 14 changed the value of record with id 7 from 1300 to 739
+ [read] 11. Thread number 3 read the record with id 3 and  value 67
+ [write] 12. Thread number 12 changed the value of record with id 1 from 1 to 581
+ [write] 13. Thread number 4 changed the value of record with id 3 from 512 to 1374
+ [read] 14. Thread number 13 read the record with id 1 and  value 7
+ [read] 15. Thread number 17 read the record with id 1 and  value 7
+ [write] 16. Thread number 16 changed the value of record with id 4 from 739 to 437
+ [read] 17. Thread number 11 read the record with id 1 and  value 7
+ [write] 18. Thread number 18 changed the value of record with id 2 from 67 to 1084
+ [read] 19. Thread number 15 read the record with id 4 and  value 920
+ [write] 20. Thread number 6 changed the value of record with id 7 from 1374 to 789
+ Final vector:  -12  7  437  581  789  920  970  1084  
+Used distribution: Uniform(414, 1414)
+ 
